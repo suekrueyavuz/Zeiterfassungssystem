@@ -1,6 +1,7 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,10 @@ public class Mitarbeiter {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "mitarbeiter", cascade = CascadeType.ALL)
