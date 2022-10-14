@@ -1,8 +1,10 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,4 +23,14 @@ public class Mitarbeiter {
 
     @Column(nullable = false)
     private String surname;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "mitarbeiter", cascade = CascadeType.ALL)
+    private List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiter;
 }

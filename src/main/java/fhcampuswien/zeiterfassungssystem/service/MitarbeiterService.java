@@ -17,4 +17,8 @@ public class MitarbeiterService {
     public Mitarbeiter createNewMitarbeiter(Mitarbeiter mitarbeiter) {
         return mitarbeiterRepository.save(mitarbeiter);
     }
+
+    public Mitarbeiter getMitarbeiter(Long id) {
+        return mitarbeiterRepository.findById(id).get();
+    }
 }
