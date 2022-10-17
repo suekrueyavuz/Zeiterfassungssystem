@@ -5,10 +5,7 @@ import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mitarbeiter")
@@ -24,5 +21,10 @@ public class MitarbeiterController {
     public ResponseEntity<Mitarbeiter> createNewMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
         Mitarbeiter newMitarbeiter = mitarbeiterService.createNewMitarbeiter(mitarbeiter);
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}")
+    public void startzeitEintragen(@PathVariable Long id, @RequestParam String startZeit) {
+        mitarbeiterService.startZeitEintragen(startZeit, id);
     }
 }
