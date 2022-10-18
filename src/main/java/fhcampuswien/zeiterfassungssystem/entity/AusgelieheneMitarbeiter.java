@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
+import fhcampuswien.zeiterfassungssystem.Enum.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,5 +34,8 @@ public class AusgelieheneMitarbeiter {
 
     @Column
     private String endZeit;
+
+    @Column
+    private Status status;
 
 }

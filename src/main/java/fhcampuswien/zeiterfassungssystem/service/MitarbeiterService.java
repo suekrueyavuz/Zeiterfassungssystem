@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.service;
 
+import fhcampuswien.zeiterfassungssystem.Enum.Status;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.repository.MitarbeiterRepository;
@@ -33,5 +34,6 @@ public class MitarbeiterService {
     public void startZeitEintragen(String startZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setStartZeit(startZeit);
+        mitarbeiter.setStatus(Status.INBEARBEITUNG);
     }
 }
