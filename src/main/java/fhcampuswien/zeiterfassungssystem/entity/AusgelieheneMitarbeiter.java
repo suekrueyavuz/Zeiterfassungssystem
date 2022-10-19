@@ -36,6 +36,7 @@ public class AusgelieheneMitarbeiter {
     private String endZeit;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private Status status;
 
 }

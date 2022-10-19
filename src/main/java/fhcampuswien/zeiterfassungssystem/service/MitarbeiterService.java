@@ -31,9 +31,10 @@ public class MitarbeiterService {
     }
 
     @Transactional
-    public void startZeitEintragen(String startZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
+    public void startZeitEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setStartZeit(startZeit);
+        mitarbeiter.setEndZeit(endZeit);
         mitarbeiter.setStatus(Status.INBEARBEITUNG);
     }
 }

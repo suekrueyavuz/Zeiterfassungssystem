@@ -1,15 +1,12 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
-import fhcampuswien.zeiterfassungssystem.requestDTO.StartzeitEintragenDTO;
+import fhcampuswien.zeiterfassungssystem.requestDTO.ArbeitszeitEintragenDTO;
 import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/mitarbeiter")
@@ -30,7 +27,8 @@ public class MitarbeiterController {
     @PostMapping("/{mitarbeiterId}/firma/{firmaId}")
     public void startzeitEintragen(@PathVariable Long mitarbeiterId,
                                    @PathVariable Long firmaId,
-                                   @RequestBody StartzeitEintragenDTO startzeitEintragenDTO) {
-        mitarbeiterService.startZeitEintragen(startzeitEintragenDTO.getStartZeit(), mitarbeiterId, firmaId, startzeitEintragenDTO.getArbeitstag());
+                                   @RequestBody ArbeitszeitEintragenDTO arbeitszeitEintragenDTO) {
+        mitarbeiterService.startZeitEintragen(arbeitszeitEintragenDTO.getStartZeit(), arbeitszeitEintragenDTO.getEndZeit(),
+                mitarbeiterId, firmaId, arbeitszeitEintragenDTO.getArbeitstag());
     }
 }

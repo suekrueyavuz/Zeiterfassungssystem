@@ -10,7 +10,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class StartzeitEintragenDTO {
+public class ArbeitszeitEintragenDTO {
     private String startZeit;
+    private String endZeit;
     private @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate arbeitstag;
 }
