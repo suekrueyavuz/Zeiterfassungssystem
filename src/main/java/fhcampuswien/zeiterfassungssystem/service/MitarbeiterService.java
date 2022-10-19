@@ -37,4 +37,10 @@ public class MitarbeiterService {
         mitarbeiter.setEndZeit(endZeit);
         mitarbeiter.setStatus(Status.INBEARBEITUNG);
     }
+
+    @Transactional
+    public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, Status status) {
+        AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
+        mitarbeiter.setStatus(status);
+    }
 }
