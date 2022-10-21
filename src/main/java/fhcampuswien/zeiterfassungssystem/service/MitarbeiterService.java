@@ -1,6 +1,7 @@
 package fhcampuswien.zeiterfassungssystem.service;
 
-import fhcampuswien.zeiterfassungssystem.Enum.Status;
+import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
+import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.repository.MitarbeiterRepository;
@@ -22,7 +23,8 @@ public class MitarbeiterService {
         this.ausgelieheneMitarbeiterService = ausgelieheneMitarbeiterService;
     }
 
-    public Mitarbeiter createNewMitarbeiter(Mitarbeiter mitarbeiter) {
+    public Mitarbeiter save(Mitarbeiter mitarbeiter) {
+        mitarbeiter.setAusgeliehenStatus(AusgeliehenStatus.VERFUEGBAR);
         return mitarbeiterRepository.save(mitarbeiter);
     }
 
@@ -30,17 +32,21 @@ public class MitarbeiterService {
         return mitarbeiterRepository.findById(id).get();
     }
 
-    @Transactional
-    public void startZeitEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
-        AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
-        mitarbeiter.setStartZeit(startZeit);
-        mitarbeiter.setEndZeit(endZeit);
-        mitarbeiter.setStatus(Status.INBEARBEITUNG);
+    public Mitarbeiter getMitarbeiterByUsername(String username) {
+        return mitarbeiterRepository.findByUsername(username);
     }
 
     @Transactional
-    public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, Status status) {
+    public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
-        mitarbeiter.setStatus(status);
+        mitarbeiter.setStartZeit(startZeit);
+        mitarbeiter.setEndZeit(endZeit);
+        mitarbeiter.setZeitStatus(ZeitStatus.INBEARBEITUNG);
+    }
+
+    @Transactional
+    public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
+        AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
+        mitarbeiter.setZeitStatus(zeitStatus);
     }
 }

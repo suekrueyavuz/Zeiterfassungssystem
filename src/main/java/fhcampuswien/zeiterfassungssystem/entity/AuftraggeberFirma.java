@@ -1,11 +1,14 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
@@ -13,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class AuftraggeberFirma {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

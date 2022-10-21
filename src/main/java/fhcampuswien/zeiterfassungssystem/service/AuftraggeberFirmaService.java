@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.service;
 
+import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
 import fhcampuswien.zeiterfassungssystem.repository.AuftraggeberFirmaRepository;
@@ -14,18 +15,24 @@ public class AuftraggeberFirmaService {
     private MitarbeiterService mitarbeiterService;
 
     @Autowired
-    public AuftraggeberFirmaService(AuftraggeberFirmaRepository auftraggeberFirmaRepository, MitarbeiterService mitarbeiterService) {
+    public AuftraggeberFirmaService(AuftraggeberFirmaRepository auftraggeberFirmaRepository,
+                                    MitarbeiterService mitarbeiterService) {
         this.auftraggeberFirmaRepository = auftraggeberFirmaRepository;
         this.mitarbeiterService = mitarbeiterService;
     }
 
-    public void createNewCompany(AuftraggeberFirma firma) {
-        auftraggeberFirmaRepository.save(firma);
+    public AuftraggeberFirma save(AuftraggeberFirma firma) {
+        return auftraggeberFirmaRepository.save(firma);
+    }
+
+    public AuftraggeberFirma getFirmaByUsername(String username) {
+        return auftraggeberFirmaRepository.findByUsername(username);
     }
 
     @Transactional
     public void addMitarbeiterToCompany(Long mitarbeiterId, Long firmaId) {
         Mitarbeiter mitarbeiter = mitarbeiterService.getMitarbeiter(mitarbeiterId);
+        mitarbeiter.setAusgeliehenStatus(AusgeliehenStatus.AUSGELIEHEN);
         AuftraggeberFirma company = auftraggeberFirmaRepository.findById(firmaId).get();
         company.addMitarbeiter(mitarbeiter);
     }

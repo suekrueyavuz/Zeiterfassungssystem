@@ -1,7 +1,8 @@
 package fhcampuswien.zeiterfassungssystem.Enum;
 
 public enum Role {
-    ADMIN,
-    MITARBEITER,
-    SCHICHTLEITER,
+    ROLE_ADMIN,
+    ROLE_MITARBEITER,
+    ROLE_SCHICHTLEITER,
+    ROLE_FIRMA
 }

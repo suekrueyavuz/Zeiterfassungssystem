@@ -1,6 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.Enum;
 
-public enum Status {
+public enum ZeitStatus {
     AKZEPTIERT,
     ABGELEHNT,
     INBEARBEITUNG

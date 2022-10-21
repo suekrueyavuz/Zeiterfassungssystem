@@ -1,6 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
-import fhcampuswien.zeiterfassungssystem.Enum.Status;
+import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,6 +37,6 @@ public class AusgelieheneMitarbeiter {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private ZeitStatus zeitStatus;
 
 }
