@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -30,10 +31,10 @@ public class AusgelieheneMitarbeiter {
     private LocalDate tag;
 
     @Column
-    private String startZeit;
+    private LocalTime startZeit;
 
     @Column
-    private String endZeit;
+    private LocalTime endZeit;
 
     @Column
     @Enumerated(EnumType.STRING)

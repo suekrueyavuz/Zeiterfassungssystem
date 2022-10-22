@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalTime;
+
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 public class ZeiterfassungssystemApplication implements CommandLineRunner {
 	@Autowired private MitarbeiterService mitarbeiterService;

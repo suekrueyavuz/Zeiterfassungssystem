@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Service
 public class MitarbeiterService {
@@ -39,8 +40,8 @@ public class MitarbeiterService {
     @Transactional
     public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
-        mitarbeiter.setStartZeit(startZeit);
-        mitarbeiter.setEndZeit(endZeit);
+        mitarbeiter.setStartZeit(parseArbeitszeiten(startZeit));
+        mitarbeiter.setEndZeit(parseArbeitszeiten(endZeit));
         mitarbeiter.setZeitStatus(ZeitStatus.INBEARBEITUNG);
     }
 
@@ -48,5 +49,9 @@ public class MitarbeiterService {
     public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setZeitStatus(zeitStatus);
+    }
+
+    public LocalTime parseArbeitszeiten(String arbeitszeit) {
+        return LocalTime.parse(arbeitszeit);
     }
 }
