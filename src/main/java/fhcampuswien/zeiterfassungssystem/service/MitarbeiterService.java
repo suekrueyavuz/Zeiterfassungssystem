@@ -39,6 +39,9 @@ public class MitarbeiterService {
 
     @Transactional
     public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
+        if(!checkIfZeitenIsCorrect(startZeit, endZeit)) {
+            throw new IllegalArgumentException("Start- und Endzeit-Angaben stimmen nicht.");
+        }
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setStartZeit(parseArbeitszeiten(startZeit));
         mitarbeiter.setEndZeit(parseArbeitszeiten(endZeit));
@@ -51,7 +54,14 @@ public class MitarbeiterService {
         mitarbeiter.setZeitStatus(zeitStatus);
     }
 
-    public LocalTime parseArbeitszeiten(String arbeitszeit) {
+    private LocalTime parseArbeitszeiten(String arbeitszeit) {
         return LocalTime.parse(arbeitszeit);
+    }
+
+    private boolean checkIfZeitenIsCorrect(String startzeit, String endzeit) {
+        LocalTime start = LocalTime.parse(startzeit);
+        LocalTime ende = LocalTime.parse(endzeit);
+        int value = start.compareTo(ende);
+        return value < 0;
     }
 }
