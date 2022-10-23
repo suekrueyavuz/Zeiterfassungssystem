@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuftraggeberFirmaRepository extends JpaRepository<AuftraggeberFirma, Long> {
     AuftraggeberFirma findByUsername(String username);
+
 }

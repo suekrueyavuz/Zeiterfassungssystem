@@ -20,4 +20,8 @@ public class AusgelieheneMitarbeiterService {
     public AusgelieheneMitarbeiter getAusgeliehenenMitarbeiterVonFirma(Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         return ausgelieheneMitarbeiterRepository.getAusgelieheneMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
     }
+
+    public List<AusgelieheneMitarbeiter> getAllByFirmaId(Long firmaId) {
+        return ausgelieheneMitarbeiterRepository.getAllByFirmaId(firmaId);
+    }
 }

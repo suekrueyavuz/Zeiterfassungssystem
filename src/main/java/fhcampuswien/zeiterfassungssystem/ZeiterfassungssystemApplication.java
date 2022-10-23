@@ -27,6 +27,7 @@ public class ZeiterfassungssystemApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		createTestMitarbeiter("Sükrü", "Yavuz", "sukru", "test123", Role.ROLE_MITARBEITER);
+		createTestMitarbeiter("Sükrü2", "Yavuz2", "sukru2", "test123", Role.ROLE_MITARBEITER);
 		createTestMitarbeiter("Shipdon", "Veseli", "shipdon", "test123", Role.ROLE_ADMIN);
 		createTestMitarbeiter("Sükür", "Yavuz", "sukur", "test123", Role.ROLE_SCHICHTLEITER);
 
@@ -53,6 +54,9 @@ public class ZeiterfassungssystemApplication implements CommandLineRunner {
 					.name(name)
 					.username(username)
 					.password(passwordEncoder.encode(password))
+					.ersteSchicht(26.5)
+					.zweiteSchicht(27.5)
+					.dritteSchicht(31.5)
 					.build());
 			auftraggeberFirmaService.save(firma);
 		}
