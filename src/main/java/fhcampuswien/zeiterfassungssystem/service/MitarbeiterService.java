@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class MitarbeiterService {
     private MitarbeiterRepository mitarbeiterRepository;
     private AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService;
@@ -29,6 +31,11 @@ public class MitarbeiterService {
         return mitarbeiterRepository.save(mitarbeiter);
     }
 
+    public void remove(Long id) {
+        Mitarbeiter mitarbeiter = getMitarbeiter(id);
+        mitarbeiterRepository.delete(mitarbeiter);
+    }
+
     public Mitarbeiter getMitarbeiter(Long id) {
         return mitarbeiterRepository.findById(id).get();
     }
@@ -37,7 +44,6 @@ public class MitarbeiterService {
         return mitarbeiterRepository.findByUsername(username);
     }
 
-    @Transactional
     public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
         if(!checkIfZeitenIsCorrect(startZeit, endZeit)) {
             throw new IllegalArgumentException("Start- und Endzeit-Angaben stimmen nicht.");
@@ -48,7 +54,6 @@ public class MitarbeiterService {
         mitarbeiter.setZeitStatus(ZeitStatus.INBEARBEITUNG);
     }
 
-    @Transactional
     public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setZeitStatus(zeitStatus);

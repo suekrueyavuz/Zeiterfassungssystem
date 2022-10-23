@@ -28,6 +28,11 @@ public class AdminController {
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
     }
 
+    @DeleteMapping("/mitarbeiter/{mitarbeiterId}")
+    public void removeMitarbeiter(@PathVariable final Long mitarbeiterId) {
+        mitarbeiterService.remove(mitarbeiterId);
+    }
+
     @PostMapping("/firma")
     public void createNewCompany(@RequestBody AuftraggeberFirma firma) {
         auftraggeberFirmaService.save(firma);
