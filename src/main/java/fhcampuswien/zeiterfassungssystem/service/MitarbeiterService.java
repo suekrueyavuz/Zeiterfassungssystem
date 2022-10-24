@@ -69,4 +69,14 @@ public class MitarbeiterService {
         int value = start.compareTo(ende);
         return value < 0;
     }
+
+    public String resetPassword(Long mitarbeiterId, String newpass) {
+        Optional<Mitarbeiter> mitarbeiter1 = mitarbeiterRepository.findById(mitarbeiterId);
+        if(mitarbeiter1.isPresent()){
+            mitarbeiter1.get().setPassword(newpass);
+            mitarbeiterRepository.save(mitarbeiter1.get());
+            return "Password resetted";
+        }
+        return "Employee not found";
+    }
 }

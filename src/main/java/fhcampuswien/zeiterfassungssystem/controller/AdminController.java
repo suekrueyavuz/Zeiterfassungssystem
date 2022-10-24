@@ -7,17 +7,23 @@ import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("admin")
 public class AdminController {
     private MitarbeiterService mitarbeiterService;
+
+    private PasswordEncoder passwordEncoder;
     private AuftraggeberFirmaService auftraggeberFirmaService;
 
     @Autowired
     public AdminController(MitarbeiterService mitarbeiterService,
-                           AuftraggeberFirmaService auftraggeberFirmaService) {
+                           AuftraggeberFirmaService auftraggeberFirmaService, PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.mitarbeiterService = mitarbeiterService;
         this.auftraggeberFirmaService = auftraggeberFirmaService;
     }
@@ -28,6 +34,19 @@ public class AdminController {
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
     }
 
+    @PutMapping("/mitarbeiter/{mitarbeiterId}")
+    public ResponseEntity<String> resetEmployeePass(@PathVariable final Long mitarbeiterId){
+        String newpass = UUID.randomUUID().toString().substring(10);
+        newpass = passwordEncoder.encode(newpass);
+        return ResponseEntity.ok(mitarbeiterService.resetPassword(mitarbeiterId, newpass));
+    }
+
+    @PutMapping("/firma/{firmaId}")
+    public ResponseEntity<String> resetCompanyPass(@PathVariable final Long firmaId){
+        String newpass = UUID.randomUUID().toString().substring(10);
+        newpass = passwordEncoder.encode(newpass);
+        return ResponseEntity.ok(auftraggeberFirmaService.resetPassword(firmaId, newpass));
+    }
     @DeleteMapping("/mitarbeiter/{mitarbeiterId}")
     public void removeMitarbeiter(@PathVariable final Long mitarbeiterId) {
         mitarbeiterService.removeMitarbeiter(mitarbeiterId);

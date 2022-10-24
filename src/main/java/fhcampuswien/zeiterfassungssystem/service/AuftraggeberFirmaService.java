@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuftraggeberFirmaService {
@@ -57,6 +58,16 @@ public class AuftraggeberFirmaService {
         mitarbeiter.setAusgeliehenStatus(AusgeliehenStatus.AUSGELIEHEN);
         AuftraggeberFirma company = auftraggeberFirmaRepository.findById(firmaId).get();
         company.addMitarbeiter(mitarbeiter);
+    }
+
+    public String resetPassword(Long firmaId, String newpass) {
+        Optional<AuftraggeberFirma> firma1 = auftraggeberFirmaRepository.findById(firmaId);
+        if(firma1.isPresent()){
+            firma1.get().setPassword(newpass);
+            auftraggeberFirmaRepository.save(firma1.get());
+            return "Password resetted";
+        }
+        return "Company not found";
     }
 
     public void generateReport(HttpServletResponse response, Long firmaId) throws IOException {
