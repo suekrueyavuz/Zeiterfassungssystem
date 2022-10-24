@@ -33,6 +33,8 @@ public class AdminController {
         mitarbeiterService.remove(mitarbeiterId);
     }
 
+    @DeleteMapping("/firma/{firmaId}")
+    public void deleteCompany(@PathVariable final Long firmaId){auftraggeberFirmaService.remove(firmaId);}
     @PostMapping("/firma")
     public void createNewCompany(@RequestBody AuftraggeberFirma firma) {
         auftraggeberFirmaService.save(firma);

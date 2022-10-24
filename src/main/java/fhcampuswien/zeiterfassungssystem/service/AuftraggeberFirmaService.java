@@ -35,6 +35,18 @@ public class AuftraggeberFirmaService {
         return auftraggeberFirmaRepository.save(firma);
     }
 
+    private AuftraggeberFirma getFirmaById(Long id){
+        if(auftraggeberFirmaRepository.findById(id).isPresent()){
+            return auftraggeberFirmaRepository.findById(id).get();
+        }else{
+            //TODO Excpetion
+            return null;
+        }
+    }
+
+    public void remove(Long id){
+        auftraggeberFirmaRepository.delete(getFirmaById(id));
+    }
     public AuftraggeberFirma getFirmaByUsername(String username) {
         return auftraggeberFirmaRepository.findByUsername(username);
     }
