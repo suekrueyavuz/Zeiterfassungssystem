@@ -92,7 +92,6 @@ public class AuftraggeberFirmaService {
                     switch (ausgelieheneMitarbeiter.getSchicht()) {
                         case ERSTE_SCHICHT:
                             ersteSchicht += (double) ausgelieheneMitarbeiter.getStartZeit().until(ausgelieheneMitarbeiter.getEndZeit(), ChronoUnit.MINUTES);
-                            System.out.println("Mitarbeiter " + mitarbeiter.getId() + ": " + ersteSchicht/60);
                             break;
                         case ZWEITE_SCHICHT:
                             zweiteSchicht += (double) ausgelieheneMitarbeiter.getStartZeit().until(ausgelieheneMitarbeiter.getEndZeit(), ChronoUnit.MINUTES);
