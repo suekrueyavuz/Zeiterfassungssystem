@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
+import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
@@ -39,7 +40,9 @@ public class AdminController {
     }
 
     @PostMapping("/firma/{firmaId}/mitarbeiter/{mitarbeiterId}")
-    public void addMitarbeiterToCompany(@PathVariable final Long firmaId, @PathVariable final Long mitarbeiterId) {
-        auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiterId, firmaId);
+    public void addMitarbeiterToCompany(@PathVariable final Long firmaId,
+                                        @PathVariable final Long mitarbeiterId,
+                                        @RequestParam Schicht schicht) {
+        auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiterId, firmaId, schicht);
     }
 }

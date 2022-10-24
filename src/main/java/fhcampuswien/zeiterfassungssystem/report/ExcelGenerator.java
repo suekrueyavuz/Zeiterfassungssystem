@@ -63,12 +63,20 @@ public class ExcelGenerator {
 
             createCell(row1, 0, report.getMitarbeiterName(), style);
             createCell(row1, 1, "1. Schicht", style);
-            createCell(row1, 2, report.getErsteSchicht(), style);
+            createCell(row1, 2, report.getErsteSchichtFirma(), style);
+            createCell(row1, 4, report.getErsteSchichtMitarbeiter(), style);
+
             createCell(row2, 1, "2. Schicht", style);
-            createCell(row2, 2, report.getZweiteSchicht(), style);
+            createCell(row2, 2, report.getZweiteSchichtFirma(), style);
+            createCell(row2, 5, report.getZweiteSchichtMitarbeiter(), style);
+
             createCell(row3, 1, "3. Schicht", style);
-            createCell(row3, 2, report.getDritteSchicht(), style);
+            createCell(row3, 6, report.getDritteSchichtMitarbeiter(), style);
+
+            createCell(row3, 2, report.getDritteSchichtFirma(), style);
+
             createCell(row4, 1, "U-Std", style);
+
             createCell(row5, 1, "U-Std (So+Ft)", style);
         }
 

@@ -2,6 +2,7 @@ package fhcampuswien.zeiterfassungssystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fhcampuswien.zeiterfassungssystem.Enum.Role;
+import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -44,11 +45,12 @@ public class AuftraggeberFirma {
     @Column
     private double dritteSchicht;
 
-    public void addMitarbeiter(Mitarbeiter mitarbeiter) {
+    public void addMitarbeiter(Mitarbeiter mitarbeiter, Schicht schicht) {
         AusgelieheneMitarbeiter ausgelieheneMitarbeiter = new AusgelieheneMitarbeiter();
         ausgelieheneMitarbeiter.setMitarbeiter(mitarbeiter);
         ausgelieheneMitarbeiter.setAuftraggeberFirma(this);
         ausgelieheneMitarbeiter.setTag(LocalDate.now());
+        ausgelieheneMitarbeiter.setSchicht(schicht);
         ausgelieheneMitarbeiterList.add(ausgelieheneMitarbeiter);
     }
 }
