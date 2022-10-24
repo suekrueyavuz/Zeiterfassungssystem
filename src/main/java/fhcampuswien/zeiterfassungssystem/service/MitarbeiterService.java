@@ -31,8 +31,8 @@ public class MitarbeiterService {
         return mitarbeiterRepository.save(mitarbeiter);
     }
 
-    public void remove(Long id) {
-        Mitarbeiter mitarbeiter = getMitarbeiter(id);
+    public void removeMitarbeiter(Long mitarbeiterId) {
+        Mitarbeiter mitarbeiter = getMitarbeiter(mitarbeiterId);
         mitarbeiterRepository.delete(mitarbeiter);
     }
 
