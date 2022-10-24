@@ -38,7 +38,8 @@ public class ZeiterfassungssystemApplication implements CommandLineRunner {
 //		Mitarbeiter mitarbeiter = mitarbeiterService.getMitarbeiterByUsername("sukru");
 //		AuftraggeberFirma firma = auftraggeberFirmaService.getFirmaByUsername("primus");
 //		auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiter.getId(), firma.getId(), Schicht.ERSTE_SCHICHT);
-//		auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiter.getId(), firma.getId(), Schicht.ERSTE_SCHICHT);
+//		auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiter.getId(), firma.getId(), Schicht.ZWEITE_SCHICHT);
+//		auftraggeberFirmaService.addMitarbeiterToCompany(mitarbeiter.getId(), firma.getId(), Schicht.DRITTE_SCHICHT);
 	}
 
 	private void createTestMitarbeiter(String forename, String surname, String username, String password, Role role) {

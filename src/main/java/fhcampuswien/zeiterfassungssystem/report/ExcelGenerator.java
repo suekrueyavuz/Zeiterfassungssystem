@@ -19,6 +19,17 @@ import java.util.List;
 @Getter
 @Setter
 public class ExcelGenerator {
+    private static final int SPALTE_NAME = 0;
+    private static final int SPALTE_SCHICHT = 1;
+    private static final int SPALTE_PREIS_PRO_STUNDE = 2;
+    private static final int SPALTE_KW = 3;
+    private static final int SPALTE_ERSTE_SCHICHT = 4;
+    private static final int SPALTE_ZWEITE_SCHICHT = 5;
+    private static final int SPALTE_DRITTE_SCHICHT = 6;
+    private static final int SPALTE_U_STD = 7;
+    private static final int SPALTE_U_STD_FT = 8;
+    private static final int SPALTE_BETRAG = 9;
+
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private List<Report> reports;
@@ -36,16 +47,16 @@ public class ExcelGenerator {
         font.setBold(true);
         style.setFont(font);
 
-        createCell(row, 0, "Name", style);
-        createCell(row, 1, "Schicht", style);
-        createCell(row, 2, "Preis/Stunde", style);
-        createCell(row, 3, "KW34", style);
-        createCell(row, 4, "1. Schicht", style);
-        createCell(row, 5, "2. Schicht", style);
-        createCell(row, 6, "3. Schicht", style);
-        createCell(row, 7, "U-Std", style);
-        createCell(row, 8, "U-Std (So+Ft)", style);
-        createCell(row, 9, "Betrag", style);
+        createCell(row, SPALTE_NAME, "Name", style);
+        createCell(row, SPALTE_SCHICHT, "Schicht", style);
+        createCell(row, SPALTE_PREIS_PRO_STUNDE, "Preis/Stunde", style);
+        createCell(row, SPALTE_KW, "KW34", style);
+        createCell(row, SPALTE_ERSTE_SCHICHT, "1. Schicht", style);
+        createCell(row, SPALTE_ZWEITE_SCHICHT, "2. Schicht", style);
+        createCell(row, SPALTE_DRITTE_SCHICHT, "3. Schicht", style);
+        createCell(row, SPALTE_U_STD, "U-Std", style);
+        createCell(row, SPALTE_U_STD_FT, "U-Std (So+Ft)", style);
+        createCell(row, SPALTE_BETRAG, "Betrag", style);
     }
 
     private void writeData() {
@@ -54,6 +65,9 @@ public class ExcelGenerator {
 
         for(Report report: reports) {
             writeHeader(rowNum++);
+            double betragErsteSchicht = report.getErsteSchichtFirma() * report.getErsteSchichtMitarbeiter();
+            double betragZweiteSchicht = report.getZweiteSchichtFirma() * report.getZweiteSchichtMitarbeiter();
+            double betragDritteSchicht = report.getDritteSchichtFirma() * report.getDritteSchichtMitarbeiter();
 
             Row row1 = sheet.createRow(rowNum++);
             Row row2 = sheet.createRow(rowNum++);
@@ -61,23 +75,29 @@ public class ExcelGenerator {
             Row row4 = sheet.createRow(rowNum++);
             Row row5 = sheet.createRow(rowNum++);
 
-            createCell(row1, 0, report.getMitarbeiterName(), style);
-            createCell(row1, 1, "1. Schicht", style);
-            createCell(row1, 2, report.getErsteSchichtFirma(), style);
-            createCell(row1, 4, report.getErsteSchichtMitarbeiter(), style);
+            createCell(row1, SPALTE_NAME, report.getMitarbeiterName(), style);
+            createCell(row1, SPALTE_SCHICHT, "1. Schicht", style);
+            createCell(row1, SPALTE_KW, report.getErsteSchichtMitarbeiter(), style);
+            createCell(row1, SPALTE_PREIS_PRO_STUNDE, report.getErsteSchichtFirma(), style);
+            createCell(row1, SPALTE_ERSTE_SCHICHT, report.getErsteSchichtMitarbeiter(), style);
+            createCell(row1, SPALTE_BETRAG, betragErsteSchicht, style);
 
-            createCell(row2, 1, "2. Schicht", style);
-            createCell(row2, 2, report.getZweiteSchichtFirma(), style);
-            createCell(row2, 5, report.getZweiteSchichtMitarbeiter(), style);
+            createCell(row2, SPALTE_SCHICHT, "2. Schicht", style);
+            createCell(row2, SPALTE_KW, report.getZweiteSchichtMitarbeiter(), style);
+            createCell(row2, SPALTE_PREIS_PRO_STUNDE, report.getZweiteSchichtFirma(), style);
+            createCell(row2, SPALTE_ZWEITE_SCHICHT, report.getZweiteSchichtMitarbeiter(), style);
+            createCell(row2, SPALTE_BETRAG, betragZweiteSchicht, style);
 
-            createCell(row3, 1, "3. Schicht", style);
-            createCell(row3, 6, report.getDritteSchichtMitarbeiter(), style);
+            createCell(row3, SPALTE_SCHICHT, "3. Schicht", style);
+            createCell(row3, SPALTE_KW, report.getDritteSchichtMitarbeiter(), style);
+            createCell(row3, SPALTE_DRITTE_SCHICHT, report.getDritteSchichtMitarbeiter(), style);
+            createCell(row3, SPALTE_BETRAG, betragDritteSchicht, style);
 
-            createCell(row3, 2, report.getDritteSchichtFirma(), style);
+            createCell(row3, SPALTE_PREIS_PRO_STUNDE, report.getDritteSchichtFirma(), style);
 
-            createCell(row4, 1, "U-Std", style);
+            createCell(row4, SPALTE_SCHICHT, "U-Std", style);
 
-            createCell(row5, 1, "U-Std (So+Ft)", style);
+            createCell(row5, SPALTE_SCHICHT, "U-Std (So+Ft)", style);
         }
 
     }
