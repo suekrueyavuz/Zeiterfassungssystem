@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
+import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import lombok.*;
 
@@ -35,6 +36,13 @@ public class AusgelieheneMitarbeiter {
 
     @Column
     private LocalTime endZeit;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Schicht schicht;
+
+    @Column
+    private double ueberStunde;
 
     @Column
     @Enumerated(EnumType.STRING)
