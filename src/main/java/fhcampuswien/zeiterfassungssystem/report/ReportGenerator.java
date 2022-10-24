@@ -18,7 +18,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ExcelGenerator {
+public class ReportGenerator {
     private static final int SPALTE_NAME = 0;
     private static final int SPALTE_SCHICHT = 1;
     private static final int SPALTE_PREIS_PRO_STUNDE = 2;
@@ -34,7 +34,7 @@ public class ExcelGenerator {
     private XSSFSheet sheet;
     private List<Report> reports;
 
-    public ExcelGenerator(List<Report> reports) {
+    public ReportGenerator(List<Report> reports) {
         this.reports = reports;
         workbook = new XSSFWorkbook();
         sheet = workbook.createSheet("Report");

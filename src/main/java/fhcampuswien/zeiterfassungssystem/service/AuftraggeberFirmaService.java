@@ -5,7 +5,7 @@ import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
-import fhcampuswien.zeiterfassungssystem.report.ExcelGenerator;
+import fhcampuswien.zeiterfassungssystem.report.ReportGenerator;
 import fhcampuswien.zeiterfassungssystem.report.Report;
 import fhcampuswien.zeiterfassungssystem.repository.AuftraggeberFirmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +114,7 @@ public class AuftraggeberFirmaService {
             reports.add(report);
         }
 
-        ExcelGenerator excelGenerator = new ExcelGenerator(reports);
-        excelGenerator.generateReport(response);
+        ReportGenerator reportGenerator = new ReportGenerator(reports);
+        reportGenerator.generateReport(response);
     }
 }
