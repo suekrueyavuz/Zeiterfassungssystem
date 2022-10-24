@@ -30,7 +30,7 @@ public class AdminController {
 
     @DeleteMapping("/mitarbeiter/{mitarbeiterId}")
     public void removeMitarbeiter(@PathVariable final Long mitarbeiterId) {
-        mitarbeiterService.remove(mitarbeiterId);
+        mitarbeiterService.removeMitarbeiter(mitarbeiterId);
     }
 
     @DeleteMapping("/firma/{firmaId}")
