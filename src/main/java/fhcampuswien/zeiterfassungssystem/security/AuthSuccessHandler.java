@@ -2,11 +2,13 @@ package fhcampuswien.zeiterfassungssystem.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import fhcampuswien.zeiterfassungssystem.service.jwt.JwtUserDetailsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -39,13 +41,20 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         UserDetails principal = (UserDetails) authentication.getPrincipal();
+        GrantedAuthority grantedAuthority = principal.getAuthorities().stream().findFirst().get();
+        if(grantedAuthority.toString().equals(Role.ROLE_FIRMA.toString())) {
+
+        }
         String token = JWT.create()
                 .withSubject(userDetailsService.loadUserByUsername(principal.getUsername()).getUsername())
                 .withExpiresAt(Date.from(Instant.ofEpochMilli(ZonedDateTime.now(ZoneId.systemDefault()).toInstant().toEpochMilli() + expTime)))
                 .sign(Algorithm.HMAC256(secret));
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("Content-Type", "application/json");
-        response.getWriter().write("{\"token\": \""+token+"\"}");
+        response.getWriter().write("{\"token\": \""+token+"\"," +
+                "\t\"username\": \""+principal.getUsername()+"\"\n," +
+                "\t\"role\": \""+principal.getAuthorities().stream().findFirst().get()+"\"\n" +
+                "}");
     }
 
 }

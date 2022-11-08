@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,10 @@ public class MitarbeiterService {
 
     public Mitarbeiter getMitarbeiterByUsername(String username) {
         return mitarbeiterRepository.findByUsername(username);
+    }
+
+    public List<Mitarbeiter> getAll() {
+        return mitarbeiterRepository.findAll();
     }
 
     public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {

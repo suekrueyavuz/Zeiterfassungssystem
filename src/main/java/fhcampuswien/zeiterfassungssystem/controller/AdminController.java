@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,6 +34,12 @@ public class AdminController {
     public ResponseEntity<Mitarbeiter> createNewMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
         Mitarbeiter newMitarbeiter = mitarbeiterService.save(mitarbeiter);
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
+    }
+
+    @GetMapping("/mitarbeiter")
+    public ResponseEntity<List<Mitarbeiter>> getAllMitarbeiter() {
+        List<Mitarbeiter> mitarbeiterList = mitarbeiterService.getAll();
+        return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
     }
 
     @PutMapping("/mitarbeiter/{mitarbeiterId}")
