@@ -42,6 +42,12 @@ public class AdminController {
         return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
     }
 
+    @GetMapping("/firma")
+    public ResponseEntity<List<AuftraggeberFirma>> getAllFirmen() {
+        List<AuftraggeberFirma> firmenList = auftraggeberFirmaService.getAll();
+        return new ResponseEntity<>(firmenList, HttpStatus.OK);
+    }
+
     @PutMapping("/mitarbeiter/{mitarbeiterId}")
     public ResponseEntity<String> resetEmployeePass(@PathVariable final Long mitarbeiterId){
         String newpass = UUID.randomUUID().toString().substring(10);

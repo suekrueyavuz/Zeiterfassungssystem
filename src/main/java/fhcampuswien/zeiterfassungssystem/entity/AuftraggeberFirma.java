@@ -33,6 +33,7 @@ public class AuftraggeberFirma {
     @Column(nullable = false)
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "auftraggeberFirma", cascade = CascadeType.ALL)
     private List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = new ArrayList<>();
 

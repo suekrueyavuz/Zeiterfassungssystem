@@ -51,8 +51,13 @@ public class AuftraggeberFirmaService {
     public void remove(Long id){
         auftraggeberFirmaRepository.delete(getFirmaById(id));
     }
+
     public AuftraggeberFirma getFirmaByUsername(String username) {
         return auftraggeberFirmaRepository.findByUsername(username);
+    }
+
+    public List<AuftraggeberFirma> getAll() {
+        return auftraggeberFirmaRepository.findAll();
     }
 
     public void addMitarbeiterToCompany(Long mitarbeiterId, Long firmaId, Schicht schicht) {
