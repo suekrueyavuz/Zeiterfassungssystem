@@ -66,6 +66,11 @@ public class AdminController {
         mitarbeiterService.removeMitarbeiter(mitarbeiterId);
     }
 
+    @PutMapping("/mitarbeiter")
+    public void editMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
+        mitarbeiterService.editMitarbeiter(mitarbeiter);
+    }
+
     @DeleteMapping("/firma/{firmaId}")
     public void deleteCompany(@PathVariable final Long firmaId){auftraggeberFirmaService.remove(firmaId);}
     @PostMapping("/firma")

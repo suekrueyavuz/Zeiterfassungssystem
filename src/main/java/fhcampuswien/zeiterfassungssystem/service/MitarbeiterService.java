@@ -37,6 +37,17 @@ public class MitarbeiterService {
         mitarbeiterRepository.delete(mitarbeiter);
     }
 
+    public void editMitarbeiter(Mitarbeiter mitarbeiter) {
+        Mitarbeiter editedMitarbeiter = getMitarbeiter(mitarbeiter.getId());
+        editedMitarbeiter.setForename(mitarbeiter.getForename());
+        editedMitarbeiter.setSurname(mitarbeiter.getSurname());
+        editedMitarbeiter.setUsername(mitarbeiter.getUsername());
+        editedMitarbeiter.setPassword(mitarbeiter.getPassword());
+        editedMitarbeiter.setRole(mitarbeiter.getRole());
+        editedMitarbeiter.setAusgeliehenStatus(mitarbeiter.getAusgeliehenStatus());
+        mitarbeiterRepository.save(editedMitarbeiter);
+    }
+
     public Mitarbeiter getMitarbeiter(Long id) {
         return mitarbeiterRepository.findById(id).get();
     }
