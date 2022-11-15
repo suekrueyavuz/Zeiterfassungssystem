@@ -47,6 +47,7 @@ public class Mitarbeiter {
     @OneToMany(mappedBy = "mitarbeiter", cascade = CascadeType.ALL)
     private List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiter;
 
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
         var sga = new SimpleGrantedAuthority(this.role.name());

@@ -1,6 +1,7 @@
 package fhcampuswien.zeiterfassungssystem.service;
 
 import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
+import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
@@ -54,6 +55,10 @@ public class MitarbeiterService {
 
     public Mitarbeiter getMitarbeiterByUsername(String username) {
         return mitarbeiterRepository.findByUsername(username);
+    }
+
+    public List<Mitarbeiter> getVerfuegbareMitarbeiter() {
+        return mitarbeiterRepository.findAllByAusgeliehenStatusAndRole(AusgeliehenStatus.VERFUEGBAR, Role.ROLE_MITARBEITER);
     }
 
     public List<Mitarbeiter> getAll() {

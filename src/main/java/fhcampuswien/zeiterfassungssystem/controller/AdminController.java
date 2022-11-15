@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
+import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
 import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
@@ -42,6 +43,12 @@ public class AdminController {
         return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
     }
 
+    @GetMapping("/mitarbeiter/verfuegbar")
+    public ResponseEntity<List<Mitarbeiter>> getMitarbeiterByStatus() {
+        List<Mitarbeiter> mitarbeiterList = mitarbeiterService.getVerfuegbareMitarbeiter();
+        return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
+    }
+
     @GetMapping("/firma")
     public ResponseEntity<List<AuftraggeberFirma>> getAllFirmen() {
         List<AuftraggeberFirma> firmenList = auftraggeberFirmaService.getAll();
@@ -61,6 +68,7 @@ public class AdminController {
         newpass = passwordEncoder.encode(newpass);
         return ResponseEntity.ok(auftraggeberFirmaService.resetPassword(firmaId, newpass));
     }
+
     @DeleteMapping("/mitarbeiter/{mitarbeiterId}")
     public void removeMitarbeiter(@PathVariable final Long mitarbeiterId) {
         mitarbeiterService.removeMitarbeiter(mitarbeiterId);
@@ -72,7 +80,11 @@ public class AdminController {
     }
 
     @DeleteMapping("/firma/{firmaId}")
-    public void deleteCompany(@PathVariable final Long firmaId){auftraggeberFirmaService.remove(firmaId);}
+    public void deleteCompany(@PathVariable final Long firmaId) {
+        auftraggeberFirmaService.remove(firmaId);
+
+    }
+
     @PostMapping("/firma")
     public void createNewCompany(@RequestBody AuftraggeberFirma firma) {
         auftraggeberFirmaService.save(firma);
