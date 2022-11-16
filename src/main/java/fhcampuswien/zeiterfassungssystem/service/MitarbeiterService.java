@@ -75,6 +75,10 @@ public class MitarbeiterService {
         mitarbeiter.setZeitStatus(ZeitStatus.INBEARBEITUNG);
     }
 
+    public List<AusgelieheneMitarbeiter> getAusleihungen(Long mitarbeiterId) {
+        return ausgelieheneMitarbeiterService.getAusleihungen(mitarbeiterId);
+    }
+
     public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setZeitStatus(zeitStatus);

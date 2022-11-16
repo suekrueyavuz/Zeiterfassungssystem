@@ -20,11 +20,11 @@ public class AusgelieheneMitarbeiter {
     @Column(nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "mitarbeiter_id")
     private Mitarbeiter mitarbeiter;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "auftraggeberFirma_id")
     private AuftraggeberFirma auftraggeberFirma;
 
