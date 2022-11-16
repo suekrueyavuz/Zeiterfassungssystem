@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,15 +107,17 @@ public class AuftraggeberFirmaService {
 
             for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
                 if (mitarbeiter.getId().equals(ausgelieheneMitarbeiter.getMitarbeiter().getId())) {
+                    LocalTime startZeit = ausgelieheneMitarbeiter.getStartZeit();
+                    LocalTime endZeit = ausgelieheneMitarbeiter.getEndZeit();
                     switch (ausgelieheneMitarbeiter.getSchicht()) {
                         case ERSTE_SCHICHT:
-                            ersteSchicht += (double) ausgelieheneMitarbeiter.getStartZeit().until(ausgelieheneMitarbeiter.getEndZeit(), ChronoUnit.MINUTES);
+                            ersteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
                             break;
                         case ZWEITE_SCHICHT:
-                            zweiteSchicht += (double) ausgelieheneMitarbeiter.getStartZeit().until(ausgelieheneMitarbeiter.getEndZeit(), ChronoUnit.MINUTES);
+                            zweiteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
                             break;
                         case DRITTE_SCHICHT:
-                            dritteSchicht += (double) ausgelieheneMitarbeiter.getStartZeit().until(ausgelieheneMitarbeiter.getEndZeit(), ChronoUnit.MINUTES);
+                            dritteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
                             break;
                     }
                 }
@@ -132,5 +136,13 @@ public class AuftraggeberFirmaService {
 
         ReportGenerator reportGenerator = new ReportGenerator(reports);
         reportGenerator.generateReport(response);
+    }
+
+    private double getDifferenceBetweenTimes(LocalTime start, LocalTime end) {
+        if(start.isBefore(end)) {
+            return (double) Duration.between(start, end).toMinutes();
+        } else {
+            return (double) Duration.ofHours(24).minus(Duration.between(end, start)).toMinutes();
+        }
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -68,9 +69,6 @@ public class MitarbeiterService {
     }
 
     public void arbeitszeitenEintragen(String startZeit, String endZeit, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag) {
-        if(!checkIfZeitenIsCorrect(startZeit, endZeit)) {
-            throw new IllegalArgumentException("Start- und Endzeit-Angaben stimmen nicht.");
-        }
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setStartZeit(parseArbeitszeiten(startZeit));
         mitarbeiter.setEndZeit(parseArbeitszeiten(endZeit));
@@ -84,13 +82,6 @@ public class MitarbeiterService {
 
     private LocalTime parseArbeitszeiten(String arbeitszeit) {
         return LocalTime.parse(arbeitszeit);
-    }
-
-    private boolean checkIfZeitenIsCorrect(String startzeit, String endzeit) {
-        LocalTime start = LocalTime.parse(startzeit);
-        LocalTime ende = LocalTime.parse(endzeit);
-        int value = start.compareTo(ende);
-        return value < 0;
     }
 
     public String resetPassword(Long mitarbeiterId, String newpass) {
