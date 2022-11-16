@@ -43,9 +43,7 @@ public class MitarbeiterService {
         editedMitarbeiter.setForename(mitarbeiter.getForename());
         editedMitarbeiter.setSurname(mitarbeiter.getSurname());
         editedMitarbeiter.setUsername(mitarbeiter.getUsername());
-        editedMitarbeiter.setPassword(mitarbeiter.getPassword());
         editedMitarbeiter.setRole(mitarbeiter.getRole());
-        editedMitarbeiter.setAusgeliehenStatus(mitarbeiter.getAusgeliehenStatus());
         mitarbeiterRepository.save(editedMitarbeiter);
     }
 

@@ -74,7 +74,7 @@ public class AdminController {
         mitarbeiterService.removeMitarbeiter(mitarbeiterId);
     }
 
-    @PutMapping("/mitarbeiter")
+    @PutMapping("/mitarbeiter/bearbeiten")
     public void editMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
         mitarbeiterService.editMitarbeiter(mitarbeiter);
     }
