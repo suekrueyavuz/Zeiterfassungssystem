@@ -55,8 +55,12 @@ public class MitarbeiterService {
         return mitarbeiterRepository.findByUsername(username);
     }
 
-    public List<Mitarbeiter> getVerfuegbareMitarbeiter() {
-        return mitarbeiterRepository.findAllByAusgeliehenStatusAndRole(AusgeliehenStatus.VERFUEGBAR, Role.ROLE_MITARBEITER);
+    public List<Mitarbeiter> getAllMitarbeiterByStatus(AusgeliehenStatus status) {
+        return mitarbeiterRepository.findAllByAusgeliehenStatusAndRole(status, Role.ROLE_MITARBEITER);
+    }
+
+    public List<Mitarbeiter> getAllByRole(Role role) {
+        return mitarbeiterRepository.findAllByRole(role);
     }
 
     public List<Mitarbeiter> getAll() {

@@ -14,4 +14,6 @@ public interface MitarbeiterRepository extends JpaRepository<Mitarbeiter, Long> 
     Mitarbeiter findByUsername(String username);
 
     List<Mitarbeiter> findAllByAusgeliehenStatusAndRole(AusgeliehenStatus status, Role role);
+
+    List<Mitarbeiter> findAllByRole(Role role);
 }

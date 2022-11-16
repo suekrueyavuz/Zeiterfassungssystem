@@ -1,6 +1,7 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
 import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
+import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
@@ -44,8 +45,8 @@ public class AdminController {
     }
 
     @GetMapping("/mitarbeiter/verfuegbar")
-    public ResponseEntity<List<Mitarbeiter>> getMitarbeiterByStatus() {
-        List<Mitarbeiter> mitarbeiterList = mitarbeiterService.getVerfuegbareMitarbeiter();
+    public ResponseEntity<List<Mitarbeiter>> getVerfuegbareMitarbeiter() {
+        List<Mitarbeiter> mitarbeiterList = mitarbeiterService.getAllMitarbeiterByStatus(AusgeliehenStatus.VERFUEGBAR);
         return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
     }
 
