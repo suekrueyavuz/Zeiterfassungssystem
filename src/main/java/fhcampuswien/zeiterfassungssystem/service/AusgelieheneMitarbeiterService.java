@@ -25,7 +25,4 @@ public class AusgelieheneMitarbeiterService {
         return ausgelieheneMitarbeiterRepository.getAllByFirmaId(firmaId);
     }
 
-    public List<AusgelieheneMitarbeiter> findAllByTag(LocalDate tag) {
-        return ausgelieheneMitarbeiterRepository.findAllByTag(tag);
-    }
 }
