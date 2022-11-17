@@ -13,7 +13,6 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class AusgelieheneMitarbeiter {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

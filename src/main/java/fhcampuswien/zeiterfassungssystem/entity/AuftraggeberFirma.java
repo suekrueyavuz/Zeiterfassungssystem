@@ -16,7 +16,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
 public class AuftraggeberFirma {
     @Id

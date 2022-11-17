@@ -15,7 +15,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
 public class Mitarbeiter {
     @Id
@@ -44,7 +43,7 @@ public class Mitarbeiter {
     private AusgeliehenStatus ausgeliehenStatus;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "mitarbeiter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mitarbeiter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiter;
 
     @JsonIgnore
