@@ -7,6 +7,7 @@ import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.repository.MitarbeiterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,16 +22,20 @@ import java.util.Optional;
 public class MitarbeiterService {
     private MitarbeiterRepository mitarbeiterRepository;
     private AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public MitarbeiterService (MitarbeiterRepository mitarbeiterRepository,
-                               AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService) {
+                               AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService,
+                               PasswordEncoder passwordEncoder) {
         this.mitarbeiterRepository = mitarbeiterRepository;
         this.ausgelieheneMitarbeiterService = ausgelieheneMitarbeiterService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Mitarbeiter save(Mitarbeiter mitarbeiter) {
         mitarbeiter.setAusgeliehenStatus(AusgeliehenStatus.VERFUEGBAR);
+        mitarbeiter.setPassword(passwordEncoder.encode(mitarbeiter.getPassword()));
         return mitarbeiterRepository.save(mitarbeiter);
     }
 

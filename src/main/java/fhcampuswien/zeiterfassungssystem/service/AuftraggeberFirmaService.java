@@ -9,6 +9,7 @@ import fhcampuswien.zeiterfassungssystem.report.ReportGenerator;
 import fhcampuswien.zeiterfassungssystem.report.Report;
 import fhcampuswien.zeiterfassungssystem.repository.AuftraggeberFirmaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,14 +27,17 @@ public class AuftraggeberFirmaService {
     private AuftraggeberFirmaRepository auftraggeberFirmaRepository;
     private MitarbeiterService mitarbeiterService;
     private AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public AuftraggeberFirmaService(AuftraggeberFirmaRepository auftraggeberFirmaRepository,
                                     MitarbeiterService mitarbeiterService,
-                                    AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService) {
+                                    AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService,
+                                    PasswordEncoder passwordEncoder) {
         this.auftraggeberFirmaRepository = auftraggeberFirmaRepository;
         this.mitarbeiterService = mitarbeiterService;
         this.ausgelieheneMitarbeiterService = ausgelieheneMitarbeiterService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public AuftraggeberFirma save(AuftraggeberFirma firma) {
@@ -76,6 +80,15 @@ public class AuftraggeberFirmaService {
             return "Password resetted";
         }
         return "Company not found";
+    }
+
+    public void passwortAendern(Long firmaId, String altesPasswort, String neuesPasswort) {
+        AuftraggeberFirma firma = auftraggeberFirmaRepository.findById(firmaId).get();
+        if(passwordEncoder.matches(altesPasswort, firma.getPassword())) {
+            firma.setPassword(passwordEncoder.encode(neuesPasswort));
+        } else {
+            throw new IllegalArgumentException("Altes Passwort ist nicht korrekt");
+        }
     }
 
     public void generateReport(HttpServletResponse response, Long firmaId) throws IOException {
