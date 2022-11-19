@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
+import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
 import fhcampuswien.zeiterfassungssystem.requestDTO.PasswortAendernDTO;
 import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,11 @@ public class AuftraggeberFirmaController {
 
     @GetMapping("/{firmaId}/report")
     public void exportReport(HttpServletResponse response, @PathVariable Long firmaId) {
+        AuftraggeberFirma firma = auftraggeberFirmaService.getFirmaById(firmaId);
         try {
             response.setContentType("application/octet-stream");
             String headerKey = "Content-Disposition";
-            String headerValue = "attachment; filename=report.xlsx";
+            String headerValue = "attachment; filename=Report-" + firma.getName() + ".xlsx";
             response.setHeader(headerKey, headerValue);
 
             auftraggeberFirmaService.generateReport(response, firmaId);

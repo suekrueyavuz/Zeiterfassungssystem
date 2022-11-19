@@ -44,7 +44,7 @@ public class AuftraggeberFirmaService {
         return auftraggeberFirmaRepository.save(firma);
     }
 
-    private AuftraggeberFirma getFirmaById(Long id){
+    public AuftraggeberFirma getFirmaById(Long id){
         if(auftraggeberFirmaRepository.findById(id).isPresent()){
             return auftraggeberFirmaRepository.findById(id).get();
         }else{
@@ -94,18 +94,11 @@ public class AuftraggeberFirmaService {
     public void generateReport(HttpServletResponse response, Long firmaId) throws IOException {
         List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
 
-        List<Long> mitarbeiterIds = new ArrayList<>();
-        for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
-            Long mitarbeiterId = ausgelieheneMitarbeiter.getMitarbeiter().getId();
-            if (!mitarbeiterIds.contains(mitarbeiterId)) {
-                mitarbeiterIds.add(ausgelieheneMitarbeiter.getMitarbeiter().getId());
-            }
-        }
-
         List<Mitarbeiter> mitarbeiterList = new ArrayList<>();
-        for (Long mitarbeiterId : mitarbeiterIds) {
-            Mitarbeiter mitarbeiter = mitarbeiterService.getMitarbeiter(mitarbeiterId);
-            mitarbeiterList.add(mitarbeiter);
+        for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
+            if(!mitarbeiterList.contains(ausgelieheneMitarbeiter.getMitarbeiter())) {
+                mitarbeiterList.add(ausgelieheneMitarbeiter.getMitarbeiter());
+            }
         }
 
         AuftraggeberFirma firma = auftraggeberFirmaRepository.findById(firmaId).get();
@@ -157,4 +150,5 @@ public class AuftraggeberFirmaService {
             return (double) Duration.ofHours(24).minus(Duration.between(end, start)).toMinutes();
         }
     }
+
 }
