@@ -59,7 +59,7 @@ public class ReportGenerator {
         createCell(row, SPALTE_BETRAG, "Betrag", style);
     }
 
-    private void writeData() {
+    public void writeData(HttpServletResponse response) throws IOException {
         CellStyle style = workbook.createCellStyle();
         int rowNum = 0;
 
@@ -99,7 +99,7 @@ public class ReportGenerator {
 
             createCell(row5, SPALTE_SCHICHT, "U-Std (So+Ft)", style);
         }
-
+        generateReport(response);
     }
 
     private void createCell(Row row, int columnIndex, Object valueOfCell, CellStyle style) {
@@ -119,8 +119,7 @@ public class ReportGenerator {
         cell.setCellStyle(style);
     }
 
-    public void generateReport(HttpServletResponse response) throws IOException {
-        writeData();
+    private void generateReport(HttpServletResponse response) throws IOException {
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();

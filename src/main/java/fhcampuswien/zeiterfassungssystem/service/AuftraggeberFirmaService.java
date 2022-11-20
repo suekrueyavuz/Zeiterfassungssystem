@@ -91,9 +91,18 @@ public class AuftraggeberFirmaService {
         }
     }
 
-    public void generateReport(HttpServletResponse response, Long firmaId) throws IOException {
-        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
+    public List<AusgelieheneMitarbeiter> getAusgelieheneMitarbeiter(Long firmaId) {
+        return ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
+    }
 
+    public void generateReportFuerFirma(HttpServletResponse response, Long firmaId) throws IOException {
+        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
+        List<Report> reports = erstelleReports(firmaId, ausgelieheneMitarbeiterList);
+        ReportGenerator reportGenerator = new ReportGenerator(reports);
+        reportGenerator.writeData(response);
+    }
+
+    private List<Report> erstelleReports(Long firmaId, List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList) {
         List<Mitarbeiter> mitarbeiterList = new ArrayList<>();
         for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
             if(!mitarbeiterList.contains(ausgelieheneMitarbeiter.getMitarbeiter())) {
@@ -138,9 +147,7 @@ public class AuftraggeberFirmaService {
             report.setDritteSchichtFirma(firma.getDritteSchicht());
             reports.add(report);
         }
-
-        ReportGenerator reportGenerator = new ReportGenerator(reports);
-        reportGenerator.generateReport(response);
+        return reports;
     }
 
     private double getDifferenceBetweenTimes(LocalTime start, LocalTime end) {

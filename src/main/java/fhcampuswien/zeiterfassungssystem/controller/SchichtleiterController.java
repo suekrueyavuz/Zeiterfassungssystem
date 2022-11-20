@@ -15,11 +15,10 @@ public class SchichtleiterController {
         this.mitarbeiterService = mitarbeiterService;
     }
 
-    @PostMapping("/{schichtleiterId}/mitarbeiter/{mitarbeiterId}")
-    public void arbeitszeitenStatusBearbeiten(@PathVariable Long schichtleiterId,
-                                              @PathVariable Long mitarbeiterId,
+    @PostMapping("/mitarbeiter/{mitarbeiterId}")
+    public void arbeitszeitenStatusBearbeiten(@PathVariable Long mitarbeiterId,
                                               @RequestBody ArbeitszeitBearbeitenDTO dto) {
-        mitarbeiterService.arbeitzeitenStatusBearbeiten(schichtleiterId, mitarbeiterId, dto.getFirmaId(),
+        mitarbeiterService.arbeitzeitenStatusBearbeiten(mitarbeiterId, dto.getFirmaId(),
                 dto.getArbeitstag(), dto.getZeitStatus());
     }
 }

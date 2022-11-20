@@ -1,13 +1,17 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
+import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.requestDTO.PasswortAendernDTO;
 import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("firma")
@@ -33,10 +37,15 @@ public class AuftraggeberFirmaController {
             String headerValue = "attachment; filename=Report-" + firma.getName() + ".xlsx";
             response.setHeader(headerKey, headerValue);
 
-            auftraggeberFirmaService.generateReport(response, firmaId);
+            auftraggeberFirmaService.generateReportFuerFirma(response, firmaId);
         } catch (IOException e) {
             e.getMessage();
         }
+    }
+
+    @GetMapping("/{firmaId}/ausgelieheneMitarbeiter")
+    public ResponseEntity<List<AusgelieheneMitarbeiter>> getAusgelieheneMitarbeiter(@PathVariable final Long firmaId) {
+        return new ResponseEntity<>(auftraggeberFirmaService.getAusgelieheneMitarbeiter(firmaId), HttpStatus.OK);
     }
 
 }

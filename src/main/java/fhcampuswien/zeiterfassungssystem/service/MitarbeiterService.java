@@ -53,6 +53,11 @@ public class MitarbeiterService {
         mitarbeiterRepository.save(editedMitarbeiter);
     }
 
+    public void editAusgeliehenStatus(Long mitarbeiterId, AusgeliehenStatus status) {
+        Mitarbeiter mitarbeiter = mitarbeiterRepository.findById(mitarbeiterId).get();
+        mitarbeiter.setAusgeliehenStatus(status);
+    }
+
     public Mitarbeiter getMitarbeiter(Long id) {
         return mitarbeiterRepository.findById(id).get();
     }
@@ -78,13 +83,14 @@ public class MitarbeiterService {
         mitarbeiter.setStartZeit(parseArbeitszeiten(startZeit));
         mitarbeiter.setEndZeit(parseArbeitszeiten(endZeit));
         mitarbeiter.setZeitStatus(ZeitStatus.INBEARBEITUNG);
+        editAusgeliehenStatus(mitarbeiterId, AusgeliehenStatus.VERFUEGBAR);
     }
 
     public List<AusgelieheneMitarbeiter> getAusleihungen(Long mitarbeiterId) {
         return ausgelieheneMitarbeiterService.getAusleihungen(mitarbeiterId);
     }
 
-    public void arbeitzeitenStatusBearbeiten(Long schichtleiterId, Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
+    public void arbeitzeitenStatusBearbeiten(Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setZeitStatus(zeitStatus);
     }

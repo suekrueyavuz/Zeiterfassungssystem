@@ -83,7 +83,6 @@ public class AdminController {
     @DeleteMapping("/firma/{firmaId}")
     public void deleteCompany(@PathVariable final Long firmaId) {
         auftraggeberFirmaService.remove(firmaId);
-
     }
 
     @PostMapping("/firma")
