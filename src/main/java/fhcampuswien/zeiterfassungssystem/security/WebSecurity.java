@@ -59,7 +59,7 @@ public class WebSecurity {
                     try {
                         auth
                                 .antMatchers("/mitarbeiter", "/mitarbeiter/**").hasAnyRole("MITARBEITER", "ADMIN")
-                                .antMatchers("/schichtleiter", "/schichtleiter/**").hasAnyRole("SCHICHTLEITER", "ADMIN")
+                                .antMatchers("/schichtleiter", "/schichtleiter/**", "/firma/**").hasAnyRole("SCHICHTLEITER", "ADMIN")
                                 .antMatchers("/admin", "/admin/**").hasRole("ADMIN")
                                 .antMatchers("/firma", "/firma/**").hasAnyRole("FIRMA", "ADMIN")
                                 .anyRequest().permitAll()

@@ -47,4 +47,7 @@ public class AusgelieheneMitarbeiter {
     @Enumerated(EnumType.STRING)
     private ZeitStatus zeitStatus;
 
+    @Column
+    private boolean isFeiertag;
+
 }

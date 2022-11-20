@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,13 @@ public class AuftraggeberFirmaService {
         return ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
     }
 
+    public void generateReportFuerZeitraum(HttpServletResponse response, Long firmaId, LocalDate von, LocalDate bis) throws IOException {
+        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaIdFuerZeitraum(firmaId, von, bis);
+        List<Report> reports = erstelleReports(firmaId, ausgelieheneMitarbeiterList);
+        ReportGenerator reportGenerator = new ReportGenerator(reports);
+        reportGenerator.writeData(response);
+    }
+
     public void generateReportFuerFirma(HttpServletResponse response, Long firmaId) throws IOException {
         List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
         List<Report> reports = erstelleReports(firmaId, ausgelieheneMitarbeiterList);
@@ -126,12 +134,21 @@ public class AuftraggeberFirmaService {
                     switch (ausgelieheneMitarbeiter.getSchicht()) {
                         case ERSTE_SCHICHT:
                             ersteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
+                            if(ausgelieheneMitarbeiter.isFeiertag()) {
+                                ersteSchicht *= ersteSchicht;
+                            }
                             break;
                         case ZWEITE_SCHICHT:
                             zweiteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
+                            if(ausgelieheneMitarbeiter.isFeiertag()) {
+                                zweiteSchicht *= zweiteSchicht;
+                            }
                             break;
                         case DRITTE_SCHICHT:
                             dritteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
+                            if(ausgelieheneMitarbeiter.isFeiertag()) {
+                                dritteSchicht *= dritteSchicht;
+                            }
                             break;
                     }
                 }

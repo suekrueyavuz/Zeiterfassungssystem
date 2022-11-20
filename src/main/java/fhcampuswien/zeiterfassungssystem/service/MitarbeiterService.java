@@ -35,7 +35,7 @@ public class MitarbeiterService {
 
     public Mitarbeiter save(Mitarbeiter mitarbeiter) {
         mitarbeiter.setAusgeliehenStatus(AusgeliehenStatus.VERFUEGBAR);
-        mitarbeiter.setPassword(passwordEncoder.encode(mitarbeiter.getPassword()));
+        mitarbeiter.setPassword(mitarbeiter.getPassword());
         return mitarbeiterRepository.save(mitarbeiter);
     }
 
@@ -93,6 +93,11 @@ public class MitarbeiterService {
     public void arbeitzeitenStatusBearbeiten(Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
         AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, arbeitstag);
         mitarbeiter.setZeitStatus(zeitStatus);
+    }
+
+    public void markiereAlsFeiertag(Long mitarbeiterId, Long firmaId, LocalDate tag, boolean isFeiertag) {
+        AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, tag);
+        mitarbeiter.setFeiertag(isFeiertag);
     }
 
     private LocalTime parseArbeitszeiten(String arbeitszeit) {

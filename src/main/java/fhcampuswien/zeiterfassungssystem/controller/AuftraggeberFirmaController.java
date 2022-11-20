@@ -5,12 +5,14 @@ import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.requestDTO.PasswortAendernDTO;
 import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -38,6 +40,23 @@ public class AuftraggeberFirmaController {
             response.setHeader(headerKey, headerValue);
 
             auftraggeberFirmaService.generateReportFuerFirma(response, firmaId);
+        } catch (IOException e) {
+            e.getMessage();
+        }
+    }
+
+    @GetMapping("/{firmaId}/export")
+    public void exportReportFuerZeitraum(HttpServletResponse response, @PathVariable Long firmaId,
+                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate von,
+                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate bis) {
+        AuftraggeberFirma firma = auftraggeberFirmaService.getFirmaById(firmaId);
+        try {
+            response.setContentType("application/octet-stream");
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=Report-" + firma.getName() + ".xlsx";
+            response.setHeader(headerKey, headerValue);
+
+            auftraggeberFirmaService.generateReportFuerZeitraum(response, firmaId, von, bis);
         } catch (IOException e) {
             e.getMessage();
         }

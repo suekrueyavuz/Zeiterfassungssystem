@@ -16,5 +16,8 @@ public interface AusgelieheneMitarbeiterRepository extends JpaRepository<Ausgeli
     @Query("SELECT u FROM AusgelieheneMitarbeiter u WHERE u.auftraggeberFirma.id = ?1")
     List<AusgelieheneMitarbeiter> getAllByFirmaId(Long firmaId);
 
+    @Query("SELECT u FROM AusgelieheneMitarbeiter u WHERE u.auftraggeberFirma.id = ?1 AND u.tag BETWEEN ?2 AND ?3")
+    List<AusgelieheneMitarbeiter> getAllByFirmaIdFuerZeitraum(Long firmaId, LocalDate von, LocalDate bis);
+
     List<AusgelieheneMitarbeiter> findAllByMitarbeiter_Id(Long mitarbeiterId);
 }
