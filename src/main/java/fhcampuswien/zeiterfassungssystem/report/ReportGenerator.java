@@ -68,6 +68,11 @@ public class ReportGenerator {
             double betragErsteSchicht = report.getErsteSchichtFirma() * report.getErsteSchichtMitarbeiter();
             double betragZweiteSchicht = report.getZweiteSchichtFirma() * report.getZweiteSchichtMitarbeiter();
             double betragDritteSchicht = report.getDritteSchichtFirma() * report.getDritteSchichtMitarbeiter();
+            if(report.isFeiertag()) {
+                betragErsteSchicht += betragErsteSchicht;
+                betragZweiteSchicht += betragZweiteSchicht;
+                betragDritteSchicht += betragDritteSchicht;
+            }
 
             Row row1 = sheet.createRow(rowNum++);
             Row row2 = sheet.createRow(rowNum++);

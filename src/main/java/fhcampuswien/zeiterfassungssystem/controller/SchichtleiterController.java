@@ -1,6 +1,7 @@
 package fhcampuswien.zeiterfassungssystem.controller;
 
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
+import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.requestDTO.ArbeitszeitBearbeitenDTO;
 import fhcampuswien.zeiterfassungssystem.service.AusgelieheneMitarbeiterService;
 import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
@@ -23,6 +24,11 @@ public class SchichtleiterController {
     public SchichtleiterController(MitarbeiterService mitarbeiterService, AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService) {
         this.mitarbeiterService = mitarbeiterService;
         this.ausgelieheneMitarbeiterService = ausgelieheneMitarbeiterService;
+    }
+
+    @GetMapping("/{schichtleiterId}")
+    public ResponseEntity<Mitarbeiter> getSchichtleiter(@PathVariable Long schichtleiterId) {
+        return new ResponseEntity<>(mitarbeiterService.getMitarbeiter(schichtleiterId), HttpStatus.OK);
     }
 
     @PostMapping("/mitarbeiter/{mitarbeiterId}")

@@ -49,6 +49,9 @@ public class ZeiterfassungssystemApplication implements CommandLineRunner {
 					.password(passwordEncoder.encode(password))
 					.role(role)
 					.build());
+			if(mitarbeiter.getRole().equals(Role.ROLE_SCHICHTLEITER)) {
+				mitarbeiter.setFirmaId(5L);
+			}
 			mitarbeiterService.save(mitarbeiter);
 		}
 	}

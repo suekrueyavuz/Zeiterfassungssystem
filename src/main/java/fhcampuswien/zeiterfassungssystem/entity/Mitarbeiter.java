@@ -39,6 +39,9 @@ public class Mitarbeiter {
     private Role role;
 
     @Column
+    private Long firmaId;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private AusgeliehenStatus ausgeliehenStatus;
 

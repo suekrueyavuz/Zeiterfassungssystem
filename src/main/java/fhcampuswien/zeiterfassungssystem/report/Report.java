@@ -21,4 +21,5 @@ public class Report {
     private double uStunden;
     private double uStundenSoFt;
     private double betrag;
+    private boolean isFeiertag;
 }

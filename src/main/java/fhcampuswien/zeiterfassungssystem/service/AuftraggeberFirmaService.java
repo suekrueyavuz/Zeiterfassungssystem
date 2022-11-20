@@ -126,6 +126,7 @@ public class AuftraggeberFirmaService {
             double ersteSchicht = 0;
             double zweiteSchicht = 0;
             double dritteSchicht = 0;
+            boolean isFeiertag = false;
 
             for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
                 if (mitarbeiter.getId().equals(ausgelieheneMitarbeiter.getMitarbeiter().getId())) {
@@ -134,23 +135,17 @@ public class AuftraggeberFirmaService {
                     switch (ausgelieheneMitarbeiter.getSchicht()) {
                         case ERSTE_SCHICHT:
                             ersteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
-                            if(ausgelieheneMitarbeiter.isFeiertag()) {
-                                ersteSchicht *= ersteSchicht;
-                            }
                             break;
                         case ZWEITE_SCHICHT:
                             zweiteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
-                            if(ausgelieheneMitarbeiter.isFeiertag()) {
-                                zweiteSchicht *= zweiteSchicht;
-                            }
                             break;
                         case DRITTE_SCHICHT:
                             dritteSchicht += getDifferenceBetweenTimes(startZeit, endZeit);
-                            if(ausgelieheneMitarbeiter.isFeiertag()) {
-                                dritteSchicht *= dritteSchicht;
-                            }
                             break;
                     }
+                }
+                if(ausgelieheneMitarbeiter.isFeiertag()) {
+                    isFeiertag = true;
                 }
             }
 
@@ -162,6 +157,7 @@ public class AuftraggeberFirmaService {
             report.setErsteSchichtFirma(firma.getErsteSchicht());
             report.setZweiteSchichtFirma(firma.getZweiteSchicht());
             report.setDritteSchichtFirma(firma.getDritteSchicht());
+            report.setFeiertag(isFeiertag);
             reports.add(report);
         }
         return reports;
