@@ -4,8 +4,10 @@ import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
 import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
+import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
+import fhcampuswien.zeiterfassungssystem.service.AusgelieheneMitarbeiterService;
 import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,16 +22,20 @@ import java.util.UUID;
 @RequestMapping("admin")
 public class AdminController {
     private MitarbeiterService mitarbeiterService;
+    private AuftraggeberFirmaService auftraggeberFirmaService;
+    private AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService;
 
     private PasswordEncoder passwordEncoder;
-    private AuftraggeberFirmaService auftraggeberFirmaService;
 
     @Autowired
     public AdminController(MitarbeiterService mitarbeiterService,
-                           AuftraggeberFirmaService auftraggeberFirmaService, PasswordEncoder passwordEncoder) {
+                           AuftraggeberFirmaService auftraggeberFirmaService,
+                           PasswordEncoder passwordEncoder,
+                           AusgelieheneMitarbeiterService ausgelieheneMitarbeiterService) {
         this.passwordEncoder = passwordEncoder;
         this.mitarbeiterService = mitarbeiterService;
         this.auftraggeberFirmaService = auftraggeberFirmaService;
+        this.ausgelieheneMitarbeiterService = ausgelieheneMitarbeiterService;
     }
 
     @PostMapping("/mitarbeiter")
@@ -47,6 +53,12 @@ public class AdminController {
     @GetMapping("/mitarbeiter/verfuegbar")
     public ResponseEntity<List<Mitarbeiter>> getVerfuegbareMitarbeiter() {
         List<Mitarbeiter> mitarbeiterList = mitarbeiterService.getAllMitarbeiterByStatus(AusgeliehenStatus.VERFUEGBAR);
+        return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
+    }
+
+    @GetMapping("/mitarbeiter/ausgeliehen")
+    public ResponseEntity<List<AusgelieheneMitarbeiter>> getAusgelieheneMitarbeiter() {
+        List<AusgelieheneMitarbeiter> mitarbeiterList = ausgelieheneMitarbeiterService.getAusgelieheneMitarbeiter();
         return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
     }
 

@@ -31,8 +31,12 @@ public class AusgelieheneMitarbeiterService {
         return ausgelieheneMitarbeiterRepository.getAllByFirmaIdFuerZeitraum(firmaId, von, bis);
     }
 
-    public List<AusgelieheneMitarbeiter> getAusleihungen(Long mitarbeiterId) {
+    public List<AusgelieheneMitarbeiter> getAusleihungenVonMitarbeiter(Long mitarbeiterId) {
         return ausgelieheneMitarbeiterRepository.findAllByMitarbeiter_Id(mitarbeiterId);
+    }
+
+    public List<AusgelieheneMitarbeiter> getAusgelieheneMitarbeiter() {
+        return ausgelieheneMitarbeiterRepository.findAll();
     }
 
 }

@@ -87,7 +87,7 @@ public class MitarbeiterService {
     }
 
     public List<AusgelieheneMitarbeiter> getAusleihungen(Long mitarbeiterId) {
-        return ausgelieheneMitarbeiterService.getAusleihungen(mitarbeiterId);
+        return ausgelieheneMitarbeiterService.getAusleihungenVonMitarbeiter(mitarbeiterId);
     }
 
     public void arbeitzeitenStatusBearbeiten(Long mitarbeiterId, Long firmaId, LocalDate arbeitstag, ZeitStatus zeitStatus) {
