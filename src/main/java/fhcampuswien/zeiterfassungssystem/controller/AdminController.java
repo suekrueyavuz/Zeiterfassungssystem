@@ -10,11 +10,13 @@ import fhcampuswien.zeiterfassungssystem.service.AuftraggeberFirmaService;
 import fhcampuswien.zeiterfassungssystem.service.AusgelieheneMitarbeiterService;
 import fhcampuswien.zeiterfassungssystem.service.MitarbeiterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,6 +62,12 @@ public class AdminController {
     public ResponseEntity<List<AusgelieheneMitarbeiter>> getAusgelieheneMitarbeiter() {
         List<AusgelieheneMitarbeiter> mitarbeiterList = ausgelieheneMitarbeiterService.getAusgelieheneMitarbeiter();
         return new ResponseEntity<>(mitarbeiterList, HttpStatus.OK);
+    }
+
+    @PutMapping("/mitarbeiter/ausgeliehenerMitarbeiter/{id}")
+    public void updateAusgeliehenenMitarbeiter(@PathVariable Long id,
+                                               @RequestBody AusgelieheneMitarbeiter ausgelieheneMitarbeiter) {
+        ausgelieheneMitarbeiterService.updateAusgeliehenenMitarbeiter(id, ausgelieheneMitarbeiter);
     }
 
     @GetMapping("/firma")

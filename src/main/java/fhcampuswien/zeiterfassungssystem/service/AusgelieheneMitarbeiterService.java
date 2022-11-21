@@ -39,4 +39,12 @@ public class AusgelieheneMitarbeiterService {
         return ausgelieheneMitarbeiterRepository.findAll();
     }
 
+    public void updateAusgeliehenenMitarbeiter(Long mitarbeiterId, AusgelieheneMitarbeiter ausgelieheneMitarbeiter) {
+        AusgelieheneMitarbeiter mitarbeiter = getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId,
+                ausgelieheneMitarbeiter.getAuftraggeberFirma().getId(), ausgelieheneMitarbeiter.getTag());
+        mitarbeiter.setStartZeit(ausgelieheneMitarbeiter.getStartZeit());
+        mitarbeiter.setEndZeit(ausgelieheneMitarbeiter.getEndZeit());
+        mitarbeiter.setZeitStatus(ausgelieheneMitarbeiter.getZeitStatus());
+    }
+
 }
