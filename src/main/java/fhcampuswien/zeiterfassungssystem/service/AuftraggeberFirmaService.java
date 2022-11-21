@@ -126,10 +126,12 @@ public class AuftraggeberFirmaService {
             double ersteSchicht = 0;
             double zweiteSchicht = 0;
             double dritteSchicht = 0;
+            double ueberStunden = 0;
             boolean isFeiertag = false;
 
             for (AusgelieheneMitarbeiter ausgelieheneMitarbeiter : ausgelieheneMitarbeiterList) {
                 if (mitarbeiter.getId().equals(ausgelieheneMitarbeiter.getMitarbeiter().getId())) {
+                    ueberStunden += ausgelieheneMitarbeiter.getUeberStunde();
                     LocalTime startZeit = ausgelieheneMitarbeiter.getStartZeit();
                     LocalTime endZeit = ausgelieheneMitarbeiter.getEndZeit();
                     switch (ausgelieheneMitarbeiter.getSchicht()) {
@@ -157,6 +159,7 @@ public class AuftraggeberFirmaService {
             report.setErsteSchichtFirma(firma.getErsteSchicht());
             report.setZweiteSchichtFirma(firma.getZweiteSchicht());
             report.setDritteSchichtFirma(firma.getDritteSchicht());
+            report.setUStunden(ueberStunden);
             report.setFeiertag(isFeiertag);
             reports.add(report);
         }

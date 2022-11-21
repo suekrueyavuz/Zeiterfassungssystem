@@ -100,6 +100,19 @@ public class MitarbeiterService {
         mitarbeiter.setFeiertag(isFeiertag);
     }
 
+    public void markiereAlsUeberstunde(Long mitarbeiterId, Long firmaId, LocalDate tag) {
+        AusgelieheneMitarbeiter mitarbeiter = ausgelieheneMitarbeiterService.getAusgeliehenenMitarbeiterVonFirma(mitarbeiterId, firmaId, tag);
+        mitarbeiter.setUeberStunde(getDifferenceBetweenTimes(mitarbeiter.getStartZeit(), mitarbeiter.getEndZeit()));
+    }
+
+    private double getDifferenceBetweenTimes(LocalTime start, LocalTime end) {
+        if(start.isBefore(end)) {
+            return (double) Duration.between(start, end).toMinutes() / 60;
+        } else {
+            return (double) Duration.ofHours(24).minus(Duration.between(end, start)).toMinutes() / 60;
+        }
+    }
+
     private LocalTime parseArbeitszeiten(String arbeitszeit) {
         return LocalTime.parse(arbeitszeit);
     }

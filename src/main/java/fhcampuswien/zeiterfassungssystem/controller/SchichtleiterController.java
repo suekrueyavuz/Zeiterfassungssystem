@@ -45,4 +45,11 @@ public class SchichtleiterController {
                                     @RequestParam boolean isFeiertag) {
         mitarbeiterService.markiereAlsFeiertag(mitarbeiterId, firmaId, tag, isFeiertag);
     }
+
+    @PostMapping("/firma/{firmaId}/mitarbeiter/{mitarbeiterId}")
+    public void markiereAlsUeberstunde(@PathVariable Long mitarbeiterId,
+                                       @PathVariable Long firmaId,
+                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate tag) {
+        mitarbeiterService.markiereAlsUeberstunde(mitarbeiterId, firmaId, tag);
+    }
 }

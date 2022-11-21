@@ -78,7 +78,6 @@ public class ReportGenerator {
             Row row2 = sheet.createRow(rowNum++);
             Row row3 = sheet.createRow(rowNum++);
             Row row4 = sheet.createRow(rowNum++);
-            Row row5 = sheet.createRow(rowNum++);
 
             createCell(row1, SPALTE_NAME, report.getMitarbeiterName(), style);
             createCell(row1, SPALTE_SCHICHT, "1. Schicht", style);
@@ -101,8 +100,9 @@ public class ReportGenerator {
             createCell(row3, SPALTE_PREIS_PRO_STUNDE, report.getDritteSchichtFirma(), style);
 
             createCell(row4, SPALTE_SCHICHT, "U-Std", style);
-
-            createCell(row5, SPALTE_SCHICHT, "U-Std (So+Ft)", style);
+            createCell(row4, SPALTE_U_STD, report.getUStunden(), style);
+            createCell(row4, SPALTE_PREIS_PRO_STUNDE, 40, style);
+            createCell(row4, SPALTE_BETRAG, report.getUStunden() * 40, style);
         }
         generateReport(response);
     }
