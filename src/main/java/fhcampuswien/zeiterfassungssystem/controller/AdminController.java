@@ -42,6 +42,7 @@ public class AdminController {
 
     @PostMapping("/mitarbeiter")
     public ResponseEntity<Mitarbeiter> createNewMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
+        mitarbeiter.setPassword(passwordEncoder.encode(mitarbeiter.getPassword()));
         Mitarbeiter newMitarbeiter = mitarbeiterService.save(mitarbeiter);
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
     }
@@ -107,6 +108,7 @@ public class AdminController {
 
     @PostMapping("/firma")
     public void createNewCompany(@RequestBody AuftraggeberFirma firma) {
+        firma.setPassword(passwordEncoder.encode(firma.getPassword()));
         auftraggeberFirmaService.save(firma);
     }
 
