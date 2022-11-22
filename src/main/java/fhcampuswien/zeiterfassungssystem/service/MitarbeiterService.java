@@ -68,7 +68,8 @@ public class MitarbeiterService {
     }
 
     public Mitarbeiter getMitarbeiterByUsername(String username) {
-        return mitarbeiterRepository.findByUsername(username).get();
+        Optional<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findByUsername(username);
+        return mitarbeiter.orElse(null);
     }
 
     public List<Mitarbeiter> getAllMitarbeiterByStatus(AusgeliehenStatus status) {
