@@ -2,6 +2,7 @@ package fhcampuswien.zeiterfassungssystem.service;
 
 import fhcampuswien.zeiterfassungssystem.Enum.AusgeliehenStatus;
 import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
+import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.Mitarbeiter;
 import fhcampuswien.zeiterfassungssystem.entity.AuftraggeberFirma;
@@ -104,7 +105,7 @@ public class AuftraggeberFirmaService {
     }
 
     public void generateReportFuerFirma(HttpServletResponse response, Long firmaId) throws IOException {
-        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaId(firmaId);
+        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaIdAndZeitstatus(firmaId, ZeitStatus.AKZEPTIERT);
         List<Report> reports = erstelleReports(firmaId, ausgelieheneMitarbeiterList);
         ReportGenerator reportGenerator = new ReportGenerator(reports);
         reportGenerator.writeData(response);

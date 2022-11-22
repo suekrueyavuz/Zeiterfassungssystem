@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface MitarbeiterRepository extends JpaRepository<Mitarbeiter, Long> {
-    Mitarbeiter findByUsername(String username);
+    Optional<Mitarbeiter> findByUsername(String username);
 
     List<Mitarbeiter> findAllByAusgeliehenStatusAndRole(AusgeliehenStatus status, Role role);
 

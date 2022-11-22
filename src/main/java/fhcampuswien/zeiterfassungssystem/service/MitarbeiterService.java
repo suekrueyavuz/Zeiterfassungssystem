@@ -39,6 +39,11 @@ public class MitarbeiterService {
         return mitarbeiterRepository.save(mitarbeiter);
     }
 
+    public boolean checkIfMitarbeiterExists(String username) {
+        Optional<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findByUsername(username);
+        return mitarbeiter.isPresent();
+    }
+
     public void removeMitarbeiter(Long mitarbeiterId) {
         Mitarbeiter mitarbeiter = getMitarbeiter(mitarbeiterId);
         mitarbeiterRepository.delete(mitarbeiter);
@@ -63,7 +68,7 @@ public class MitarbeiterService {
     }
 
     public Mitarbeiter getMitarbeiterByUsername(String username) {
-        return mitarbeiterRepository.findByUsername(username);
+        return mitarbeiterRepository.findByUsername(username).get();
     }
 
     public List<Mitarbeiter> getAllMitarbeiterByStatus(AusgeliehenStatus status) {

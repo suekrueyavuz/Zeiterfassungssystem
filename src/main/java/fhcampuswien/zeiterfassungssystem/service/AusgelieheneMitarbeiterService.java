@@ -1,5 +1,6 @@
 package fhcampuswien.zeiterfassungssystem.service;
 
+import fhcampuswien.zeiterfassungssystem.Enum.ZeitStatus;
 import fhcampuswien.zeiterfassungssystem.entity.AusgelieheneMitarbeiter;
 import fhcampuswien.zeiterfassungssystem.repository.AusgelieheneMitarbeiterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,12 @@ public class AusgelieheneMitarbeiterService {
         return ausgelieheneMitarbeiterRepository.getAllByFirmaId(firmaId);
     }
 
+    public List<AusgelieheneMitarbeiter> getAllByFirmaIdAndZeitstatus(Long firmaId, ZeitStatus status) {
+        return ausgelieheneMitarbeiterRepository.getAllByFirmaIdAndZeitstatus(firmaId, status);
+    }
+
     public List<AusgelieheneMitarbeiter> getAllByFirmaIdFuerZeitraum(Long firmaId, LocalDate von, LocalDate bis) {
-        return ausgelieheneMitarbeiterRepository.getAllByFirmaIdFuerZeitraum(firmaId, von, bis);
+        return ausgelieheneMitarbeiterRepository.getAllByFirmaIdAndZeitstatusFuerZeitraum(firmaId, von, bis);
     }
 
     public List<AusgelieheneMitarbeiter> getAusleihungenVonMitarbeiter(Long mitarbeiterId) {

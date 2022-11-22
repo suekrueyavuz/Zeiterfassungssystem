@@ -41,7 +41,10 @@ public class AdminController {
     }
 
     @PostMapping("/mitarbeiter")
-    public ResponseEntity<Mitarbeiter> createNewMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
+    public ResponseEntity<?> createNewMitarbeiter(@RequestBody Mitarbeiter mitarbeiter) {
+        if(mitarbeiterService.checkIfMitarbeiterExists(mitarbeiter.getUsername())) {
+            return new ResponseEntity<>("Username existiert", HttpStatus.CONFLICT);
+        }
         mitarbeiter.setPassword(passwordEncoder.encode(mitarbeiter.getPassword()));
         Mitarbeiter newMitarbeiter = mitarbeiterService.save(mitarbeiter);
         return new ResponseEntity<>(newMitarbeiter, HttpStatus.OK);
