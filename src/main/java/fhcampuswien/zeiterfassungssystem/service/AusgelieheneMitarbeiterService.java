@@ -32,8 +32,8 @@ public class AusgelieheneMitarbeiterService {
         return ausgelieheneMitarbeiterRepository.getAllByFirmaIdAndZeitstatus(firmaId, status);
     }
 
-    public List<AusgelieheneMitarbeiter> getAllByFirmaIdFuerZeitraum(Long firmaId, LocalDate von, LocalDate bis) {
-        return ausgelieheneMitarbeiterRepository.getAllByFirmaIdAndZeitstatusFuerZeitraum(firmaId, von, bis);
+    public List<AusgelieheneMitarbeiter> getAllByFirmaIdAndZeitstatusFuerZeitraum(Long firmaId, ZeitStatus status, LocalDate von, LocalDate bis) {
+        return ausgelieheneMitarbeiterRepository.getAllByFirmaIdAndZeitstatusFuerZeitraum(firmaId, status, von, bis);
     }
 
     public List<AusgelieheneMitarbeiter> getAusleihungenVonMitarbeiter(Long mitarbeiterId) {

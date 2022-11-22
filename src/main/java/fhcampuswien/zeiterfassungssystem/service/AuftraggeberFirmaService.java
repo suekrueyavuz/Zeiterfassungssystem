@@ -98,7 +98,7 @@ public class AuftraggeberFirmaService {
     }
 
     public void generateReportFuerZeitraum(HttpServletResponse response, Long firmaId, LocalDate von, LocalDate bis) throws IOException {
-        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaIdFuerZeitraum(firmaId, von, bis);
+        List<AusgelieheneMitarbeiter> ausgelieheneMitarbeiterList = ausgelieheneMitarbeiterService.getAllByFirmaIdAndZeitstatusFuerZeitraum(firmaId, ZeitStatus.AKZEPTIERT, von, bis);
         List<Report> reports = erstelleReports(firmaId, ausgelieheneMitarbeiterList);
         ReportGenerator reportGenerator = new ReportGenerator(reports);
         reportGenerator.writeData(response);
