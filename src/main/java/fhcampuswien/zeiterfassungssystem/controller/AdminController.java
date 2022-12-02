@@ -81,17 +81,17 @@ public class AdminController {
     }
 
     @PutMapping("/mitarbeiter/{mitarbeiterId}")
-    public ResponseEntity<String> resetEmployeePass(@PathVariable final Long mitarbeiterId){
+    public void resetEmployeePass(@PathVariable final Long mitarbeiterId){
         String newpass = UUID.randomUUID().toString().substring(10);
         newpass = passwordEncoder.encode(newpass);
-        return ResponseEntity.ok(mitarbeiterService.resetPassword(mitarbeiterId, newpass));
+        mitarbeiterService.resetPassword(mitarbeiterId, newpass);
     }
 
     @PutMapping("/firma/{firmaId}")
-    public ResponseEntity<String> resetCompanyPass(@PathVariable final Long firmaId){
+    public void resetCompanyPass(@PathVariable final Long firmaId){
         String newpass = UUID.randomUUID().toString().substring(10);
         newpass = passwordEncoder.encode(newpass);
-        return ResponseEntity.ok(auftraggeberFirmaService.resetPassword(firmaId, newpass));
+        auftraggeberFirmaService.resetPassword(firmaId, newpass);
     }
 
     @DeleteMapping("/mitarbeiter/{mitarbeiterId}")
