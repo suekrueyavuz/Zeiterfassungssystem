@@ -1,6 +1,5 @@
 package fhcampuswien.zeiterfassungssystem.report;
 
-import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

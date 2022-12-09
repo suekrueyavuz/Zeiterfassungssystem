@@ -50,7 +50,7 @@ public class ReportGenerator {
         createCell(row, SPALTE_NAME, "Name", style);
         createCell(row, SPALTE_SCHICHT, "Schicht", style);
         createCell(row, SPALTE_PREIS_PRO_STUNDE, "Preis/Stunde", style);
-        createCell(row, SPALTE_KW, "KW34", style);
+        createCell(row, SPALTE_KW, "Gesamt", style);
         createCell(row, SPALTE_ERSTE_SCHICHT, "1. Schicht", style);
         createCell(row, SPALTE_ZWEITE_SCHICHT, "2. Schicht", style);
         createCell(row, SPALTE_DRITTE_SCHICHT, "3. Schicht", style);

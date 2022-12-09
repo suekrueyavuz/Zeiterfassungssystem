@@ -1,15 +1,13 @@
 package fhcampuswien.zeiterfassungssystem.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import fhcampuswien.zeiterfassungssystem.Enum.Role;
 import fhcampuswien.zeiterfassungssystem.Enum.Schicht;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
