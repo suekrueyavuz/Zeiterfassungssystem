@@ -55,7 +55,7 @@ public class ReportGenerator {
         createCell(row, SPALTE_ZWEITE_SCHICHT, "2. Schicht", style);
         createCell(row, SPALTE_DRITTE_SCHICHT, "3. Schicht", style);
         createCell(row, SPALTE_U_STD, "U-Std", style);
-        createCell(row, SPALTE_U_STD_FT, "U-Std (So+Ft)", style);
+        createCell(row, SPALTE_U_STD_FT, "", style);
         createCell(row, SPALTE_BETRAG, "Betrag", style);
     }
 

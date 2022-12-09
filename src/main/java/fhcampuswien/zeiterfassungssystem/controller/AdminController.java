@@ -79,14 +79,14 @@ public class AdminController {
 
     @PutMapping("/mitarbeiter/{mitarbeiterId}")
     public void resetEmployeePass(@PathVariable final Long mitarbeiterId){
-        String newpass = UUID.randomUUID().toString().substring(10);
+        String newpass = "neueinstieg01";
         newpass = passwordEncoder.encode(newpass);
         mitarbeiterService.resetPassword(mitarbeiterId, newpass);
     }
 
     @PutMapping("/firma/{firmaId}")
     public void resetCompanyPass(@PathVariable final Long firmaId){
-        String newpass = UUID.randomUUID().toString().substring(10);
+        String newpass = "neueinstieg01";
         newpass = passwordEncoder.encode(newpass);
         auftraggeberFirmaService.resetPassword(firmaId, newpass);
     }
